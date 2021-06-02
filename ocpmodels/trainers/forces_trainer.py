@@ -11,9 +11,6 @@ from collections import defaultdict
 import numpy as np
 import torch
 import torch_geometric
-from torch.utils.data import DataLoader, DistributedSampler
-from tqdm import tqdm
-
 from ocpmodels.common import distutils
 from ocpmodels.common.data_parallel import ParallelCollater
 from ocpmodels.common.registry import registry
@@ -22,6 +19,8 @@ from ocpmodels.common.utils import plot_histogram
 from ocpmodels.modules.evaluator import Evaluator
 from ocpmodels.modules.normalizer import Normalizer
 from ocpmodels.trainers.base_trainer import BaseTrainer
+from torch.utils.data import DataLoader, DistributedSampler
+from tqdm import tqdm
 
 
 @registry.register_trainer("forces")
@@ -360,6 +359,13 @@ class ForcesTrainer(BaseTrainer):
         self.metrics = {}
 
         start_epoch = self.start_step // len(self.train_loader)
+        print(
+            f"Starting epoch {start_epoch} "
+            + f"train batches {len(self.train_loader)} "
+            + f"samples {len(self.train_loader.sampler)} "
+            + f"valid batches {len(self.val_loader)} "
+            + f"samples {len(self.val_loader.sampler)}"
+        )
         for epoch in range(start_epoch, self.config["optim"]["max_epochs"]):
             skip_steps = 0
             if epoch == start_epoch and start_epoch > 0:
