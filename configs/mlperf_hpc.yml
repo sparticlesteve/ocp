@@ -66,3 +66,4 @@ slurm:
     constraint: gpu
     account: m1759
     qos: special
+    time_min: "4:00:00"
