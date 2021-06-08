@@ -43,8 +43,8 @@ model:
     #otf_graph: True
 
 optim:
-    batch_size: 4 #2
-    eval_batch_size: 4 #2
+    batch_size: 2 #2
+    eval_batch_size: 2 #2
     #val_dist_sampler: True
     #eval_every: -1000
     num_workers: 4
