@@ -2,7 +2,7 @@
 
 conda activate ocp-models
 export NCCL_SOCKET_IFNAME=eth
-id=cgpu-003
+id=cgpu-004
 
 set -x
 python main.py --config-yml configs/mlperf_hpc.yml \
