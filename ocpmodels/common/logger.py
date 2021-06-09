@@ -6,10 +6,9 @@ LICENSE file in the root directory of this source tree.
 """
 
 import torch
-from torch.utils.tensorboard import SummaryWriter
-
 import wandb
 from ocpmodels.common.registry import registry
+from torch.utils.tensorboard import SummaryWriter
 
 
 class Logger:
@@ -48,7 +47,7 @@ class WandBLogger(Logger):
         super().__init__(config)
         wandb.init(
             config=self.config,
-            id=self.config["cmd"]["timestamp"],
+            id=self.config["cmd"]["identifier"],
             name=self.config["cmd"]["identifier"],
             dir=self.config["cmd"]["logs_dir"],
             project=self.config.get("logger_project", None),
