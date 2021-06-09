@@ -48,14 +48,13 @@ optim:
     #val_dist_sampler: True
     #eval_every: -1000
     num_workers: 4
-    lr_initial: 0.0001
+    lr_initial: 0.0002
     lr_gamma: 0.1
     lr_milestones:
-        - 128000 #4
-        - 192000 #6
-        - 256000 #8
-    warmup_steps: 64000 #2
-    #warmup_epochs: 2
+        - 70000 #4
+        - 105000 #6
+        - 140000 #8
+    warmup_steps: 35000 #2
     warmup_factor: 0.2
     max_epochs: 30
     energy_coefficient: 0
