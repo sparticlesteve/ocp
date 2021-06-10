@@ -59,6 +59,7 @@ optim:
     max_epochs: 30
     energy_coefficient: 0
     force_coefficient: 50
+    disable_tqdm: True
 
 slurm:
     partition: null

@@ -434,6 +434,9 @@ class ForcesTrainer(BaseTrainer):
                         val_metrics = self.validate(
                             split="val",
                             epoch=epoch - 1 + (i + 1) / len(self.train_loader),
+                            disable_tqdm=self.config["optim"].get(
+                                "disable_tqdm", False
+                            ),
                         )
                         if (
                             "mae" in primary_metric
