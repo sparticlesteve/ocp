@@ -2,16 +2,13 @@
 
 conda activate ocp-models
 export NCCL_SOCKET_IFNAME=eth
-id=cgpu-004
+id=cgpu-005-n64
 
 set -x
 python main.py --config-yml configs/mlperf_hpc.yml \
-    --mode train --distributed --submit \
-    --amp \
+    --mode train --distributed --submit --amp \
+    --identifier $id \
     --num-gpus 8 \
     --num-workers 8 \
-    --num-nodes 4 \
-    --identifier $id \
+    --num-nodes 8 \
     --slurm-timeout 8
-
-#--checkpoint checkpoints/2021-06-06-18-06-08/checkpoint.pt
