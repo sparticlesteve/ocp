@@ -1,0 +1,65 @@
+trainer: forces
+
+dataset:
+    - src: /pscratch/sd/s/sfarrell/ocp/data/s2ef/2M/train
+      normalize_labels: True
+      target_mean: -0.7554450631141663
+      target_std: 2.887317180633545
+      grad_target_mean: 0.0
+      grad_target_std: 2.887317180633545
+    - src: /pscratch/sd/s/sfarrell/ocp/data/s2ef/all/val_id
+    #- src: data/s2ef/200k/train/
+    #- src: data/s2ef/all/val_id/
+
+logger: wandb
+
+task:
+    dataset: trajectory_lmdb
+    description: "Regressing to energies and forces for DFT trajectories from OCP"
+    type: regression
+    metric: mae
+    primary_metric: forces_mae
+    labels:
+        - potential energy
+    grad_input: atomic forces
+    train_on_free_atoms: True
+    eval_on_free_atoms: True
+
+model:
+    name: dimenetplusplus
+    hidden_channels: 192
+    out_emb_channels: 192
+    num_blocks: 3
+    cutoff: 6.0
+    num_radial: 6
+    num_spherical: 7
+    num_before_skip: 1
+    num_after_skip: 2
+    num_output_layers: 3
+    regress_forces: True
+    use_pbc: True
+    #otf_graph: True
+
+optim:
+    batch_size: 32
+    eval_batch_size: 32
+    #eval_every: -1000
+    num_workers: 4
+    lr_initial: 0.0008
+    lr_gamma: 0.1
+    lr_milestones:
+        - 140000
+        - 210000
+        - 280000
+    warmup_steps: 35000 #2
+    warmup_factor: 0.2
+    max_epochs: 30
+    energy_coefficient: 0
+    force_coefficient: 50
+    disable_tqdm: True
+
+slurm:
+    partition: null
+    constraint: gpu
+    time_min: "4:00:00"
+    #exclude: nid001740,nid[001985,001988-001989,001992],nid[002668-002669,002672-002673],nid[003060-003061,003064-003065],nid[001220-001221,001224-001225],nid[001789,001792-001793,001796],nid[001892-001893,001896-001897],nid[003464-003465,003468-003469],nid[002540-002541,002544-002545],nid[003880-003881,003884-003885],nid[002329,002332-002333,002336]
