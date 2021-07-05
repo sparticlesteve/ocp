@@ -8,15 +8,18 @@ module load cuda/11.1.1
 # NCCL hangs otherwise..?
 export NCCL_IB_DISABLE=1
 
-# Testing batch size limits
-id=pm-test-005
+# Run ID
+id=pm-test-006
+#id=pm-008-n8
+
+# Enable submitit to requeue the job
+export SBATCH_REQUEUE=1
 
 set -x
 python main.py --config-yml configs/mlperf_hpc_pm.yml \
     --mode train --distributed --submit \
     --identifier $id \
     --num-gpus 4 \
-    --num-workers 8 \
-    --num-nodes 2 --amp \
+    --num-workers 31 \
+    --num-nodes 4 --amp \
     --slurm-timeout 12
-    #--checkpoint ./checkpoints/2021-07-03-18-14-40-pm-test-004/checkpoint.pt

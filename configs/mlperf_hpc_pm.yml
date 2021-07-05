@@ -41,10 +41,10 @@ model:
     #otf_graph: True
 
 optim:
-    batch_size: 32
-    eval_batch_size: 32
+    batch_size: 16
+    eval_batch_size: 16
     #eval_every: -1000
-    num_workers: 4
+    num_workers: 16
     lr_initial: 0.0008
     lr_gamma: 0.1
     lr_milestones:
@@ -62,4 +62,3 @@ slurm:
     partition: null
     constraint: gpu
     time_min: "4:00:00"
-    #exclude: nid001740,nid[001985,001988-001989,001992],nid[002668-002669,002672-002673],nid[003060-003061,003064-003065],nid[001220-001221,001224-001225],nid[001789,001792-001793,001796],nid[001892-001893,001896-001897],nid[003464-003465,003468-003469],nid[002540-002541,002544-002545],nid[003880-003881,003884-003885],nid[002329,002332-002333,002336]
