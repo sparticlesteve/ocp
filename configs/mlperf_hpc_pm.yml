@@ -8,8 +8,6 @@ dataset:
       grad_target_mean: 0.0
       grad_target_std: 2.887317180633545
     - src: /pscratch/sd/s/sfarrell/ocp/data/s2ef/all/val_id
-    #- src: data/s2ef/200k/train/
-    #- src: data/s2ef/all/val_id/
 
 logger: wandb
 
@@ -40,20 +38,32 @@ model:
     use_pbc: True
     #otf_graph: True
 
+# These settings optimized for global batch size (batch_size * gpus) = 256
 optim:
     batch_size: 16
     eval_batch_size: 16
-    #eval_every: -1000
     num_workers: 16
-    lr_initial: 0.0008
+    # Evaluate every epoch
+    #eval_every: -1000
+    lr_initial: 0.0004
     lr_gamma: 0.1
+
+    # New LR schedule based on DistributedSampler partitioning
     lr_milestones:
-        - 140000
-        - 210000
-        - 280000
-    warmup_steps: 35000 #2
+        - 125008 # 16 epochs
+        - 187512 # 24 epochs
+        - 250016 # 32 epochs
+    warmup_steps: 31252 # 4 epochs
+
+    # LR schedule config for previous dataset partitioning scheme
+    #lr_milestones:
+    #    - 140000
+    #    - 210000
+    #    - 280000
+    #warmup_steps: 35000 #2
+
     warmup_factor: 0.2
-    max_epochs: 30
+    max_epochs: 32
     energy_coefficient: 0
     force_coefficient: 50
     disable_tqdm: True

@@ -9,8 +9,7 @@ module load cuda/11.1.1
 export NCCL_IB_DISABLE=1
 
 # Run ID
-id=pm-test-006
-#id=pm-008-n8
+id=pm-008-n16-b16
 
 # Enable submitit to requeue the job
 export SBATCH_REQUEUE=1
@@ -21,5 +20,5 @@ python main.py --config-yml configs/mlperf_hpc_pm.yml \
     --identifier $id \
     --num-gpus 4 \
     --num-workers 31 \
-    --num-nodes 4 --amp \
+    --num-nodes 4 \
     --slurm-timeout 12
