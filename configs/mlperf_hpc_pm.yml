@@ -40,9 +40,9 @@ model:
 
 # These settings optimized for global batch size (batch_size * gpus) = 256
 optim:
-    batch_size: 16
-    eval_batch_size: 16
-    num_workers: 16
+    batch_size: 8
+    eval_batch_size: 8
+    num_workers: 8
     # Evaluate every epoch
     #eval_every: -1000
     lr_initial: 0.0004
