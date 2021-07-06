@@ -1,4 +1,4 @@
-trainer: forces
+trainer: mlperf_forces
 
 dataset:
     - src: /global/cfs/cdirs/m1759/catalysis_dl/oc20_data/s2ef/2M/train
@@ -12,11 +12,18 @@ dataset:
 logger: wandb
 
 task:
+    mlperf_benchmark: oc20
+    mlperf_org: LBNL
+    mlperf_division: closed
+    mlperf_status: onprem
+    mlperf_platform: SUBMISSION_PLATFORM_PLACEHOLDER
+
     dataset: trajectory_lmdb
     description: "Regressing to energies and forces for DFT trajectories from OCP"
     type: regression
     metric: mae
     primary_metric: forces_mae
+    target_forces_mae: 0.036
     labels:
         - potential energy
     grad_input: atomic forces
