@@ -55,13 +55,6 @@ optim:
         - 250016 # 32 epochs
     warmup_steps: 31252 # 4 epochs
 
-    # LR schedule config for previous dataset partitioning scheme
-    #lr_milestones:
-    #    - 140000
-    #    - 210000
-    #    - 280000
-    #warmup_steps: 35000 #2
-
     warmup_factor: 0.2
     max_epochs: 32
     energy_coefficient: 0
@@ -72,3 +65,5 @@ slurm:
     partition: null
     constraint: gpu
     time_min: "4:00:00"
+    #account: m1759
+    #qos: special
