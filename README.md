@@ -1,5 +1,31 @@
 # Open Catalyst Project models
 
+## MLPerf HPC benchmark instructions
+
+This repository defines the reference implementation for the MLPerf HPC
+OpenCatalyst DimeNet++ benchmark. Instructions are below for general
+usage of the repository. The reference model configuration can be found in
+[configs/mlperf\_hpc.yml](configs/mlperf_hpc.yml).
+
+To download the data, you can use the provided download script as described
+below. The commands to prepare the data in the same way as the reference are
+
+```bash
+# Download the 2M training dataset with edge info
+python scripts/download_data.py --task s2ef --split 2M --get-edges --num-workers 64 --ref-energy
+# Download the val-id evaluation dataset
+python scripts/download_data.py --task s2ef --split val_id --get-edges --num-workers 64 --ref-energy
+```
+
+For convenience, we are distributing the preprocessed dataset as a tarball
+- via [globus endpoint](https://app.globus.org/file-manager?origin_id=7008326a-def1-11eb-9b4d-47c0f9282fb8&origin_path=%2F)
+- via [NERSC web portal](https://portal.nersc.gov/project/dasrepo/mlperf-oc20/)
+
+You can see the [submit.sh](submit.sh) script for an example using submitit to
+launch training on NERSC systems.
+
+## Introduction
+
 [![CircleCI](https://circleci.com/gh/Open-Catalyst-Project/ocp.svg?style=shield)](https://circleci.com/gh/Open-Catalyst-Project/ocp)
 
 ocp-models is the modeling codebase for the [Open Catalyst Project](https://opencatalystproject.org/).
