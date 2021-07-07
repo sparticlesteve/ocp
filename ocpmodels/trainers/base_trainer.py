@@ -304,7 +304,7 @@ class BaseTrainer(ABC):
 
         checkpoint = torch.load(
             checkpoint_path,
-            map_location=(torch.device("cpu") if self.cpu else None),
+            map_location={"cuda:0" : f"cuda:{self.device}"},
         )
 
         self.start_step = checkpoint.get("step", 0)
