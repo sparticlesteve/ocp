@@ -39,6 +39,11 @@ from ocpmodels.modules.evaluator import Evaluator
 from ocpmodels.modules.normalizer import Normalizer
 from ocpmodels.modules.scheduler import LRScheduler
 
+try:
+    import apex.optimizers as fused_optim
+except ImportError:
+    fused_optim = None
+
 
 @registry.register_trainer("base")
 class BaseTrainer(ABC):
@@ -341,7 +346,12 @@ class BaseTrainer(ABC):
 
     def load_optimizer(self):
         optimizer = self.config["optim"].get("optimizer", "AdamW")
-        optimizer = getattr(optim, optimizer)
+        # apex fused optimizer
+        if optimizer == "FusedAdam":
+            optimizer = getattr(fused_optim, optimizer)
+            print("#### using fused optimizer ###")
+        else:
+            optimizer = getattr(optim, optimizer)
 
         self.optimizer = optimizer(
             params=self.model.parameters(),
