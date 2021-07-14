@@ -52,6 +52,10 @@ def setup(config):
                     config["world_size"],
                     config["rank"],
                 )
+                # the placement of this line might need to change
+                # it ensures GPU0 does not have extra context/higher peak memory
+                torch.cuda.set_device(config["local_rank"])
+
                 dist.init_process_group(
                     backend=config["distributed_backend"],
                     init_method=config["init_method"],
