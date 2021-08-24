@@ -63,7 +63,7 @@ optim:
     warmup_steps: 31252 # 4 epochs
 
     warmup_factor: 0.2
-    max_epochs: 30
+    max_epochs: 64
     energy_coefficient: 0
     force_coefficient: 50
     disable_tqdm: True

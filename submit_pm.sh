@@ -9,7 +9,8 @@ module load cuda/11.1.1
 export NCCL_IB_DISABLE=1
 
 # Run ID
-id=pm-010-n32-b8
+id=pm-test-2021-08-23-00
+#id=pm-013-n32-b8
 
 # Enable submitit to requeue the job
 export SBATCH_REQUEUE=1
