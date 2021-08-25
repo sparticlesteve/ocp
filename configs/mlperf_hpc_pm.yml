@@ -71,6 +71,6 @@ optim:
 slurm:
     partition: null
     constraint: gpu
-    time_min: "4:00:00"
+    #time_min: "4:00:00"
     #account: m1759
     #qos: special
