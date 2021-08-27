@@ -391,7 +391,7 @@ class MLPerfForcesTrainer(BaseTrainer):
         for epoch in range(start_epoch, self.config["optim"]["max_epochs"]):
             if distutils.is_master():
                 mllogger.start(key=mllog.constants.EPOCH_START,
-                               metadata={"epoch_num": epoch})
+                               metadata={"epoch_num": epoch+1})
             self.train_sampler.set_epoch(epoch)
             skip_steps = 0
             if epoch == start_epoch and start_epoch > 0:
@@ -459,7 +459,7 @@ class MLPerfForcesTrainer(BaseTrainer):
                     if self.val_loader is not None:
                         if distutils.is_master():
                             mllogger.start(key=mllog.constants.EVAL_START,
-                                           metadata={"epoch_num": epoch})
+                                           metadata={"epoch_num": epoch+1})
                         val_metrics = self.validate(
                             split="val",
                             epoch=epoch - 1 + (i + 1) / len(self.train_loader),
@@ -469,10 +469,10 @@ class MLPerfForcesTrainer(BaseTrainer):
                         )
                         if distutils.is_master():
                             mllogger.end(key=mllog.constants.EVAL_STOP,
-                                         metadata={"epoch_num": epoch})
+                                         metadata={"epoch_num": epoch+1})
                             mllogger.event(key="eval_error",
                                            value=val_metrics["forces_mae"]["metric"],
-                                           metadata={"epoch_num": epoch})
+                                           metadata={"epoch_num": epoch+1})
                         if (
                             "mae" in primary_metric
                             and val_metrics[primary_metric]["metric"]
@@ -524,7 +524,7 @@ class MLPerfForcesTrainer(BaseTrainer):
             torch.cuda.empty_cache()
             if distutils.is_master():
                 mllogger.end(key=mllog.constants.EPOCH_STOP,
-                             metadata={"epoch_num": epoch})
+                             metadata={"epoch_num": epoch+1})
 
             # End training criteria
             if stop_training:
