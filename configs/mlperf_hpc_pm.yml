@@ -54,15 +54,15 @@ optim:
     num_workers: 8
     # Evaluate every epoch
     #eval_every: -1000
-    lr_initial: 0.0008
+    lr_initial: 0.0016
     lr_gamma: 0.1
 
     # New LR schedule based on DistributedSampler partitioning
     lr_milestones:
-        - 62512 # 16 epochs
-        - 93768 # 24 epochs
-        - 125024 # 32 epochs
-    warmup_steps: 15628 # 4 epochs
+        - 31264 # 16 epochs
+        - 46896 # 24 epochs
+        - 62528 # 32 epochs
+    warmup_steps: 7816 # 4 epochs
 
     warmup_factor: 0.2
     max_epochs: 32
