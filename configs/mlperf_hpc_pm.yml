@@ -47,24 +47,23 @@ model:
     use_pbc: True
     #otf_graph: True
 
-# These settings optimized for global batch size (batch_size * gpus) = 256
+# These settings optimized for global batch size (batch_size * gpus) = 2048
 optim:
-    batch_size: 4
+    batch_size: 8
     eval_batch_size: 8
     num_workers: 8
     # Evaluate every epoch
     #eval_every: -1000
-    lr_initial: 0.0016
+
+    lr_initial: 0.0032
+    warmup_factor: 0.2
+    warmup_steps: 3908 # 4 epochs
+    lr_milestones:
+        - 15632 # 16 epochs
+        - 23448 # 24 epochs
+        - 31264 # 32 epochs
     lr_gamma: 0.1
 
-    # New LR schedule based on DistributedSampler partitioning
-    lr_milestones:
-        - 31264 # 16 epochs
-        - 46896 # 24 epochs
-        - 62528 # 32 epochs
-    warmup_steps: 7816 # 4 epochs
-
-    warmup_factor: 0.2
     max_epochs: 32
     energy_coefficient: 0
     force_coefficient: 50
