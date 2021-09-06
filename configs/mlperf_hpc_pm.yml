@@ -59,10 +59,10 @@ optim:
 
     # New LR schedule based on DistributedSampler partitioning
     lr_milestones:
-        - 125008 # 16 epochs
-        - 187512 # 24 epochs
-        - 250016 # 32 epochs
-    warmup_steps: 31252 # 4 epochs
+        - 62512 # 16 epochs
+        - 93768 # 24 epochs
+        - 125024 # 32 epochs
+    warmup_steps: 15628 # 4 epochs
 
     warmup_factor: 0.2
     max_epochs: 32
