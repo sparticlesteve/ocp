@@ -354,6 +354,15 @@ class MLPerfForcesTrainer(BaseTrainer):
             # Start mlperf initialization
             mllogger.start(key=mllog.constants.INIT_START)
 
+            # Weak-scaling HPC metrics
+            accelerators_per_node = self.config["task"]["mlperf_accelerators_per_node"]
+            accelerators_per_rank = self.config["task"]["mlperf_accelerators_per_rank"]
+            num_ranks = distutils.get_world_size()
+            num_nodes = (num_ranks * accelerators_per_rank) // accelerators_per_node
+            mllogger.event(key='number_of_ranks', value=num_ranks)
+            mllogger.event(key='number_of_nodes', value=num_nodes)
+            mllogger.event(key='accelerators_per_node', value=accelerators_per_node)
+
             # Log hyperparameters
             mllogger.event(key=mllog.constants.GLOBAL_BATCH_SIZE,
                            value=self.config["optim"]["batch_size"] * self.config["gpus"])
@@ -391,7 +400,7 @@ class MLPerfForcesTrainer(BaseTrainer):
         for epoch in range(start_epoch, self.config["optim"]["max_epochs"]):
             if distutils.is_master():
                 mllogger.start(key=mllog.constants.EPOCH_START,
-                               metadata={"epoch_num": epoch})
+                               metadata={"epoch_num": epoch+1})
             self.train_sampler.set_epoch(epoch)
             skip_steps = 0
             if epoch == start_epoch and start_epoch > 0:
@@ -459,7 +468,7 @@ class MLPerfForcesTrainer(BaseTrainer):
                     if self.val_loader is not None:
                         if distutils.is_master():
                             mllogger.start(key=mllog.constants.EVAL_START,
-                                           metadata={"epoch_num": epoch})
+                                           metadata={"epoch_num": epoch+1})
                         val_metrics = self.validate(
                             split="val",
                             epoch=epoch - 1 + (i + 1) / len(self.train_loader),
@@ -469,10 +478,10 @@ class MLPerfForcesTrainer(BaseTrainer):
                         )
                         if distutils.is_master():
                             mllogger.end(key=mllog.constants.EVAL_STOP,
-                                         metadata={"epoch_num": epoch})
+                                         metadata={"epoch_num": epoch+1})
                             mllogger.event(key="eval_error",
                                            value=val_metrics["forces_mae"]["metric"],
-                                           metadata={"epoch_num": epoch})
+                                           metadata={"epoch_num": epoch+1})
                         if (
                             "mae" in primary_metric
                             and val_metrics[primary_metric]["metric"]
@@ -524,7 +533,7 @@ class MLPerfForcesTrainer(BaseTrainer):
             torch.cuda.empty_cache()
             if distutils.is_master():
                 mllogger.end(key=mllog.constants.EPOCH_STOP,
-                             metadata={"epoch_num": epoch})
+                             metadata={"epoch_num": epoch+1})
 
             # End training criteria
             if stop_training:
