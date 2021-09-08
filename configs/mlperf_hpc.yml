@@ -53,6 +53,7 @@ optim:
     eval_batch_size: 8
     num_workers: 8
 
+    optimizer: AdamW
     lr_initial: 0.0004
     warmup_steps: 31252 # 4 epochs
     warmup_factor: 0.2
