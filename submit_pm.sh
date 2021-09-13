@@ -11,7 +11,7 @@ export NCCL_IB_DISABLE=1
 export SBATCH_REQUEUE=1
 
 # Run ID
-id=pm-034-n512-b8
+id=pm-035-n512-b8
 
 set -x
 python main.py --config-yml configs/mlperf_hpc_pm.yml \
