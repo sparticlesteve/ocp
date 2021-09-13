@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. ~/.bashrc
 module purge
 conda activate ocp-dev
 module load cuda/11.1.1
@@ -10,7 +11,7 @@ export NCCL_IB_DISABLE=1
 export SBATCH_REQUEUE=1
 
 # Run ID
-id=pm-033-n256-b8
+id=pm-034-n512-b8
 
 set -x
 python main.py --config-yml configs/mlperf_hpc_pm.yml \
@@ -18,6 +19,6 @@ python main.py --config-yml configs/mlperf_hpc_pm.yml \
     --identifier $id \
     --num-gpus 4 \
     --num-workers 31 \
-    --num-nodes 64 \
+    --num-nodes 128 \
     --slurm-timeout 4 \
-    --seed 1001
+    --seed 0
