@@ -54,15 +54,15 @@ optim:
     num_workers: 8
 
     optimizer: AdamW
-    lr_initial: 0.0020
+    lr_initial: 0.0024
     warmup_steps: 3912 # 8 epochs
     #warmup_steps: 1956 # 4 epochs
     warmup_factor: 0.2
     lr_milestones:
         #- 7824 # 16 epochs
-        #- 11736 # 24 epochs
+        - 11736 # 24 epochs
         - 15648 # 32 epochs
-        - 23472 # 48 epochs
+        #- 23472 # 48 epochs
     lr_gamma: 0.1
 
     max_epochs: 64
