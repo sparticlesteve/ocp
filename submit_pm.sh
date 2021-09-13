@@ -10,7 +10,7 @@ export NCCL_IB_DISABLE=1
 export SBATCH_REQUEUE=1
 
 # Run ID
-id=pm-032-n256-b8
+id=pm-033-n256-b8
 
 set -x
 python main.py --config-yml configs/mlperf_hpc_pm.yml \
@@ -20,4 +20,4 @@ python main.py --config-yml configs/mlperf_hpc_pm.yml \
     --num-workers 31 \
     --num-nodes 64 \
     --slurm-timeout 4 \
-    --seed 0
+    --seed 1001
