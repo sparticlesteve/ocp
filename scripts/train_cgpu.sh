@@ -7,6 +7,8 @@
 #SBATCH --time 10
 #SBATCH -o logs/slurm-%x-%j.out
 
+args=$@
+
 conda activate ocp-dev
 module load cuda/11.1.1
 
@@ -23,4 +25,4 @@ id=cgpu-n${SLURM_NTASKS}-$SLURM_JOB_ID
 set -x
 srun -u -l scripts/run_training.sh \
     --config-yml configs/mlperf_hpc.yml \
-    --identifier $id
+    --identifier $id $args

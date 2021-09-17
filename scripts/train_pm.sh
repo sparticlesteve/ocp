@@ -7,6 +7,8 @@
 #SBATCH --time 10
 #SBATCH -o logs/slurm-%x-%j.out
 
+args=$@
+
 module purge
 source $CONDA_INIT_SCRIPT
 conda activate ocp-dev
@@ -25,4 +27,4 @@ id=pm-n${SLURM_NTASKS}-$SLURM_JOB_ID
 set -x
 srun -l -u scripts/run_training.sh \
     --config-yml configs/mlperf_hpc_pm.yml \
-    --identifier $id
+    --identifier $id $args

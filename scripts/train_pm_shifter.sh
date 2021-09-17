@@ -8,6 +8,8 @@
 #SBATCH --time 10
 #SBATCH -o logs/slurm-%x-%j.out
 
+args=$@
+
 # Distributed config
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29504
@@ -20,4 +22,4 @@ d=pm-n${SLURM_NTASKS}-$SLURM_JOB_ID
 set -x
 srun -l -u shifter scripts/run_training.sh \
     --config-yml configs/mlperf_hpc_pm.yml \
-    --identifier $id
+    --identifier $id $args
