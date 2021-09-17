@@ -17,7 +17,7 @@ export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
 
 # Run ID
-d=pm-n${SLURM_NTASKS}-$SLURM_JOB_ID
+id=pm-n${SLURM_NTASKS}-$SLURM_JOB_ID
 
 set -x
 srun -l -u shifter scripts/run_training.sh \
