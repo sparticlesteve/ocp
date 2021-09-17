@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=2
 #SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=10
-#SBATCH --time 10
+#SBATCH --time 4:00:00
 #SBATCH -o logs/slurm-%x-%j.out
 
 args=$@
