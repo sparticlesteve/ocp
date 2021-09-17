@@ -16,10 +16,6 @@ export MASTER_PORT=29504
 export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
 
-# Run ID
-id=pm-n${SLURM_NTASKS}-$SLURM_JOB_ID
-
 set -x
 srun -l -u shifter scripts/run_training.sh \
-    --config-yml configs/mlperf_hpc_pm.yml \
-    --identifier $id $args
+    --config-yml configs/mlperf_hpc_pm.yml $args

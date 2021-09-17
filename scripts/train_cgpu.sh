@@ -19,10 +19,6 @@ export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=eth
 export NCCL_IB_HCA=mlx5_0:1,mlx5_2:1,mlx5_4:1,mlx5_6:1
 
-# Run ID
-id=cgpu-n${SLURM_NTASKS}-$SLURM_JOB_ID
-
 set -x
 srun -u -l scripts/run_training.sh \
-    --config-yml configs/mlperf_hpc.yml \
-    --identifier $id $args
+    --config-yml configs/mlperf_hpc.yml $args
