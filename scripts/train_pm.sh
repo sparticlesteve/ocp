@@ -9,6 +9,10 @@
 
 args=$@
 
+# Default settings
+: "${OCP_CONFIG:=configs/mlperf_hpc_pm.yml}"
+
+# Setup software
 module purge
 source $CONDA_INIT_SCRIPT
 conda activate ocp-dev
@@ -22,5 +26,4 @@ export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
 
 set -x
-srun -l -u scripts/run_training.sh \
-    --config-yml configs/mlperf_hpc_pm.yml $args
+srun -l -u scripts/run_training.sh --config-yml $OCP_CONFIG $args

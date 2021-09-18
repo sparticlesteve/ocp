@@ -9,6 +9,10 @@
 
 args=$@
 
+# Default settings
+: "${OCP_CONFIG:=configs/mlperf_hpc.yml}"
+
+# Setup software
 conda activate ocp-dev
 module load cuda/11.1.1
 
@@ -20,5 +24,4 @@ export NCCL_SOCKET_IFNAME=eth
 export NCCL_IB_HCA=mlx5_0:1,mlx5_2:1,mlx5_4:1,mlx5_6:1
 
 set -x
-srun -u -l scripts/run_training.sh \
-    --config-yml configs/mlperf_hpc.yml $args
+srun -u -l scripts/run_training.sh --config-yml $OCP_CONFIG $args

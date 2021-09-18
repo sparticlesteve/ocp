@@ -10,6 +10,9 @@
 
 args=$@
 
+# Default settings
+: "${OCP_CONFIG:=configs/mlperf_hpc_pm.yml}"
+
 # Distributed config
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29504
@@ -17,5 +20,4 @@ export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
 
 set -x
-srun -l -u shifter scripts/run_training.sh \
-    --config-yml configs/mlperf_hpc_pm.yml $args
+srun -l -u shifter scripts/run_training.sh --config-yml $OCP_CONFIG $args
