@@ -19,5 +19,11 @@ export MASTER_PORT=29504
 export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
 
+# Run the dummy cuda app to "fix" cuda init errors
+if [ ! -f ./dummy ]; then
+    echo "int main() {cudaFree(0);}" > dummy.cu && nvcc -o dummy dummy.cu
+fi
+srun ./dummy
+
 set -x
 srun -l -u shifter scripts/run_training.sh --config-yml $OCP_CONFIG $args
