@@ -53,6 +53,7 @@ class BaseTrainer(ABC):
         model,
         dataset,
         optimizer,
+        profile,
         identifier,
         run_dir=None,
         is_debug=False,
@@ -113,6 +114,7 @@ class BaseTrainer(ABC):
             "model_attributes": model,
             "optim": optimizer,
             "logger": logger,
+            "profile": profile,
             "amp": amp,
             "gpus": distutils.get_world_size() if not self.cpu else 0,
             "cmd": {

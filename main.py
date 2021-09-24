@@ -44,6 +44,7 @@ class Runner(submitit.helpers.Checkpointable):
                 model=config["model"],
                 dataset=config["dataset"],
                 optimizer=config["optim"],
+                profile=config.get("profile", {}),
                 identifier=config["identifier"],
                 run_dir=config.get("run_dir", "./"),
                 is_debug=config.get("is_debug", False),
