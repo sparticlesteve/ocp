@@ -392,15 +392,12 @@ class MLPerfForcesTrainer(BaseTrainer):
         stop_training = False
 
         start_epoch = self.start_step // len(self.train_loader)
-        print(
-            f"Starting epoch {start_epoch} "
-            + f"train batches {len(self.train_loader)} "
-            + f"samples {len(self.train_loader.sampler)} "
-            + f"valid batches {len(self.val_loader)
-                               if self.val_loader is not None else 0} "
-            + f"samples {len(self.val_loader.sampler)
-                         if self.val_loader is not None else 0} "
-        )
+        print(f"Starting epoch {start_epoch} " +
+              f"train batches {len(self.train_loader)} " +
+              f"samples {len(self.train_loader.sampler)}")
+        if self.val_loader is not None:
+            print(f"valid batches {len(self.val_loader)} " +
+                  f"samples {len(self.val_loader.sampler)}")
         for epoch in range(start_epoch, self.config["optim"]["max_epochs"]):
             if distutils.is_master():
                 mllogger.start(key=mllog.constants.EPOCH_START,
