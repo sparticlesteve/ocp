@@ -16,8 +16,8 @@ args=$@
 # Distributed config
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29504
-export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME=hsn
+export NCCL_DEBUG=${NCCL_DEBUG:-WARN}
 
 # Run the dummy cuda app to "fix" cuda init errors
 if [ ! -f ./dummy ]; then
