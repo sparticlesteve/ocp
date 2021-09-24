@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -C gpu
 #SBATCH -J ocp-cgpu
-#SBATCH --ntasks-per-node=2
+#SBATCH --ntasks-per-node=8
 #SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=10
 #SBATCH --time 4:00:00
