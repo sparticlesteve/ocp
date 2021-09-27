@@ -13,7 +13,7 @@ export LOCAL_RANK=$SLURM_LOCALID
 
 # NVIDIA's binding script
 if [ "${ENABLE_NV_BINDING:-0}" -eq 1 ]; then
-    if [ "${NERSC_HOST}" -eq "perlmutter" ]; then
+    if [[ "${NERSC_HOST}" == "perlmutter" ]]; then
         bind_map=scripts/pm_bind_map.sh
         BIND_CMD="./scripts/bind.sh --cpu=$bind_map --mem=$bind_map --"
     else
