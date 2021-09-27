@@ -25,5 +25,10 @@ if [ ! -f ./dummy ]; then
 fi
 srun ./dummy
 
+# Using nvidia's bind command requires disabling default cpu bind
+if [ "${ENABLE_NV_BINDING:-0}" -eq 1 ]; then
+    BIND_SETTINGS="--cpu-bind=none"
+fi
+
 set -x
-srun -l -u shifter scripts/run_training.sh --config-yml $OCP_CONFIG $args
+srun -l -u $BIND_SETTINGS shifter scripts/run_training.sh --config-yml $OCP_CONFIG $args
