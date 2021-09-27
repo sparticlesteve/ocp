@@ -3,7 +3,7 @@
 # Performance test on 1gpu and 4gpus
 export OMP_NUM_THREADS=1
 export WANDB_MODE="dryrun"
-export OCP_CONFIG=configs/perf_test_prof.yml
+export OCP_CONFIG=configs/perf_test_5k.yml
 export ENABLE_PROFILING=1
 export ENABLE_NV_BINDING=1
 sbatch -J pm-prof -t 30 --ntasks-per-node=1 -d singleton --exclusive \
