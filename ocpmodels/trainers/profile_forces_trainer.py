@@ -428,6 +428,7 @@ class ProfileForcesTrainer(BaseTrainer):
                             "lr": self.scheduler.get_lr(),
                             "epoch": current_epoch,
                             "step": current_step,
+                            "step_time": time.time() - timer_t0,
                         }
                     )
                     if (

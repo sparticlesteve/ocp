@@ -4,6 +4,7 @@ Copyright (c) Facebook, Inc. and its affiliates.
 This source code is licensed under the MIT license found in the
 LICENSE file in the root directory of this source tree.
 """
+import time
 import datetime
 import json
 import os
@@ -444,6 +445,8 @@ class BaseTrainer(ABC):
 
         loader = self.val_loader if split == "val" else self.test_loader
 
+        eval_time_start = time.time()
+
         for i, batch in tqdm(
             enumerate(loader),
             total=len(loader),
@@ -459,6 +462,8 @@ class BaseTrainer(ABC):
             # Compute metrics.
             metrics = self._compute_metrics(out, batch, evaluator, metrics)
             metrics = evaluator.update("loss", loss.item(), metrics)
+
+        eval_time = time.time() - eval_time_start
 
         aggregated_metrics = {}
         for k in metrics:
@@ -477,6 +482,7 @@ class BaseTrainer(ABC):
 
         log_dict = {k: metrics[k]["metric"] for k in metrics}
         log_dict.update({"epoch": epoch + 1})
+        log_dict.update({"eval_time": eval_time})
         if distutils.is_master():
             log_str = ["{}: {:.4f}".format(k, v) for k, v in log_dict.items()]
             print(", ".join(log_str))
