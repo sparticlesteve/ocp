@@ -1,16 +1,17 @@
 #!/bin/bash
 
-# Performance test on 1gpu and 4gpus
+# Performance test on 1gpu and 4gpus, with/without nvidia (fixed) binding
 export OMP_NUM_THREADS=1
-export WANDB_MODE="dryrun"
 export OCP_CONFIG=configs/perf_test_5k.yml
-export ENABLE_PROFILING=1
+#export ENABLE_PROFILING=1
+export ENABLE_NV_BINDING=0
+sbatch -J pm-prof -t 30 --ntasks-per-node=1 -d singleton --exclusive scripts/train_pm_shifter.sh
+sbatch -J pm-prof -t 30 --ntasks-per-node=4 -d singleton --exclusive scripts/train_pm_shifter.sh
 export ENABLE_NV_BINDING=1
-sbatch -J pm-prof -t 30 --ntasks-per-node=1 -d singleton --exclusive \
-    scripts/train_pm_shifter.sh
-# Single node profiling
-sbatch -J pm-prof -t 30 --ntasks-per-node=4 -d singleton --exclusive \
-    scripts/train_pm_shifter.sh
+sbatch -J pm-prof -t 30 --ntasks-per-node=1 -d singleton --exclusive scripts/train_pm_shifter.sh
+sbatch -J pm-prof -t 30 --ntasks-per-node=4 -d singleton --exclusive scripts/train_pm_shifter.sh
+
+#-------------------------------------------------------------------------------
 
 # Single GPU tests
 #export OCP_CONFIG=configs/perf_test_n1.yml

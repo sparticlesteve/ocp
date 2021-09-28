@@ -12,7 +12,7 @@ dataset:
       grad_target_mean: 0.0
       grad_target_std: 2.887317180633545
 
-#logger: wandb
+logger: wandb
 
 task:
     dataset: trajectory_lmdb
