@@ -500,9 +500,6 @@ class ForcesTrainer(BaseTrainer):
                                 val_metrics,
                             )
 
-                    else:
-                        self.save(self.epoch, self.step, self.metrics)
-
                 if self.scheduler.scheduler_type == "ReduceLROnPlateau":
                     if iters % eval_every == 0:
                         self.scheduler.step(
