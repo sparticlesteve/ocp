@@ -396,7 +396,7 @@ class ForcesTrainer(BaseTrainer):
 
         # Calculate start_epoch from step instead of loading the epoch number
         # to prevent inconsistencies due to different batch size in checkpoint.
-        start_epoch = self.start_step // len(self.train_loader)
+        start_epoch = self.step // len(self.train_loader)
         print(f"Starting epoch {start_epoch} " +
               f"train batches {len(self.train_loader)} " +
               f"samples {len(self.train_loader.sampler)}")
@@ -493,7 +493,10 @@ class ForcesTrainer(BaseTrainer):
                             )
 
                     else:
-                        self.save(self.epoch, self.step, self.metrics)
+                        # Broken, disabling for now. See:
+                        # https://github.com/Open-Catalyst-Project/ocp/issues/290
+                        #self.save(self.epoch, self.step, self.metrics)
+                        pass
 
                 if self.scheduler.scheduler_type == "ReduceLROnPlateau":
                     if self.step % eval_every == 0:
