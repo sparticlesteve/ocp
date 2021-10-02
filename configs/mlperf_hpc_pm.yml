@@ -33,7 +33,8 @@ task:
     eval_on_free_atoms: True
 
 model:
-    name: dimenetplusplus
+    name: dpp_opts
+    use_jit: True
     hidden_channels: 192
     out_emb_channels: 192
     num_blocks: 3
@@ -55,7 +56,10 @@ optim:
     eval_batch_size: 8
     num_workers: 8
 
-    optimizer: AdamW
+    optimizer: FusedAdam
+    optimizer_params:
+        set_grad_none: True
+
     lr_initial: 0.0004
     warmup_steps: 31252 # 4 epochs
     warmup_factor: 0.2
