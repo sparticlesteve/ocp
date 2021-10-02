@@ -49,6 +49,8 @@ model:
 
 # These settings optimized for global batch size (batch_size * gpus) = 256
 optim:
+    load_balancing: neighbors
+
     batch_size: 8
     eval_batch_size: 8
     num_workers: 8
@@ -66,11 +68,5 @@ optim:
     max_epochs: 32
     energy_coefficient: 0
     force_coefficient: 50
-    disable_tqdm: True
 
-slurm:
-    partition: null
-    constraint: gpu
-    #time_min: "4:00:00"
-    #account: m1759
-    #qos: special
+hide_eval_progressbar: True
