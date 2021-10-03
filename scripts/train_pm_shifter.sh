@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH -C gpu
 #SBATCH -J ocp-pm
+#SBATCH -A nstaff_g
+#SBATCH -q early_science
 #SBATCH --image=sfarrell/mlperf-ocp:latest
 #SBATCH --ntasks-per-node=4
 #SBATCH --gpus-per-task=1
