@@ -5,6 +5,7 @@ This source code is licensed under the MIT license found in the
 LICENSE file in the root directory of this source tree.
 """
 
+import time
 import logging
 import os
 from collections import defaultdict
@@ -440,6 +441,7 @@ class MLPerfForcesTrainer(BaseTrainer):
             train_loader_iter = iter(self.train_loader)
 
             for i in range(skip_steps, len(self.train_loader)):
+                step_time_start = time.time()
                 self.epoch = epoch_int + (i + 1) / len(self.train_loader)
                 self.step = epoch_int * len(self.train_loader) + i + 1
                 self.model.train()
@@ -473,6 +475,7 @@ class MLPerfForcesTrainer(BaseTrainer):
                         "lr": self.scheduler.get_lr(),
                         "epoch": self.epoch,
                         "step": self.step,
+                        "step_time": time.time() - step_time_start,
                     }
                 )
                 if (
