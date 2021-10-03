@@ -17,6 +17,8 @@ args=$@
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=29504
 export NCCL_SOCKET_IFNAME=hsn
+export OMP_NUM_THREADS=1
+export NCCL_NET_GDR_LEVEL=PHB
 export NCCL_DEBUG=${NCCL_DEBUG:-WARN}
 
 # Run the dummy cuda app to "fix" cuda init errors
