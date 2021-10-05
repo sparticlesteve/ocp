@@ -29,6 +29,7 @@ if [ "${ENABLE_PROFILING:-0}" -eq 1 ]; then
     mkdir -p $PROFILE_DIR
 fi
 
+set -x
 ${BIND_CMD} ${PROFILE_CMD} python main.py --mode train \
     --distributed \
     --local_rank $LOCAL_RANK \
